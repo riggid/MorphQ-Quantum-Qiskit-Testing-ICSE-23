@@ -215,13 +215,7 @@ class RunIndependentPartitions(MetamorphicTransformation):
         Note that we read the followup output according to the qubit mapping.
         """
         result_b = self._reconstruct(result_b)
-        exec_metadata = {
-            "res_A": result_a,
-            "res_B": result_b
-        }
-        detectors = self.detectors
-        from lib.qfl import detect_divergence
-        return detect_divergence(exec_metadata, detectors)
+        return super().check_output_relationship(result_a, result_b)
 
     def _read_str_with_mapping(
             self,
