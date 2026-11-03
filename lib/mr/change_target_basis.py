@@ -8,7 +8,7 @@ from typing import List, Tuple, Dict, Any
 from lib.mr import MetamorphicTransformation
 
 import lib.metamorph as metamorph
-from lib.qfl import detect_divergence
+
 
 
 class ChangeTargetBasis(MetamorphicTransformation):
@@ -57,15 +57,3 @@ class ChangeTargetBasis(MetamorphicTransformation):
         self.metadata = mr_metadata
 
         return metamorph.reconstruct_sections(sections)
-
-    def check_output_relationship(
-            self,
-            result_a: Dict[str, int],
-            result_b: Dict[str, int]) -> bool:
-        """Check that the two results are equivalent."""
-        exec_metadata = {
-            "res_A": result_a,
-            "res_B": result_b
-        }
-        detectors = self.detectors
-        return detect_divergence(exec_metadata, detectors)

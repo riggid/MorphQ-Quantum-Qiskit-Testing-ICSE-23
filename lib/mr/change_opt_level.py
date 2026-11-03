@@ -42,7 +42,15 @@ class ChangeOptLevel(MetamorphicTransformation):
                     if "optimization_level" in args:
                         initial_level = node.keywords[
                             args.index("optimization_level")].value.value
-                        self.levels.remove(initial_level)
+                        self.levels = [
+                            level for level in self.levels
+                            if level != initial_level
+                        ]
+                        if not self.levels:
+                            raise ValueError(
+                                "levels must include an optimization level "
+                                "different from the current level"
+                            )
                         target_opt_level = int(np.random.choice(self.levels))
                         node.keywords[args.index("optimization_level")].value = \
                             ast.Constant(target_opt_level)

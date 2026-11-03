@@ -9,8 +9,9 @@ import scipy
 
 import qiskit
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
-from qiskit import Aer, transpile
-from qiskit.tools.visualization import circuit_drawer
+from qiskit_aer import Aer
+from qiskit import transpile
+from qiskit.visualization import circuit_drawer
 from qiskit.quantum_info import state_fidelity
 
 from typing import List, Dict, Any, Tuple
@@ -492,7 +493,7 @@ def get_instructions(circ_with_instructions: str) -> List[Dict[str, str]]:
                 new_instr["cregs"], new_instr["cbits"] = [], []
                 if len(node.keywords) == 2:
                     to_upack_qubits = [
-                        (e.value.id, e.slice.value.value)
+                        (e.value.id, ast.literal_eval(e.slice))
                         for e in node.keywords[0].value.elts
                     ]
                     if len(to_upack_qubits) > 0:
@@ -500,7 +501,7 @@ def get_instructions(circ_with_instructions: str) -> List[Dict[str, str]]:
                             zip(*list(to_upack_qubits))
 
                     to_upack_bits = [
-                        (e.value.id, e.slice.value.value)
+                        (e.value.id, ast.literal_eval(e.slice))
                         for e in node.keywords[1].value.elts
                     ]
                     if len(to_upack_bits) > 0:

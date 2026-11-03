@@ -1,10 +1,8 @@
 from abc import ABC
 from abc import abstractmethod
 import random
+import numpy as np
 from typing import List, Tuple, Dict, Any
-
-from lib.qfl import detect_divergence
-
 
 class MetamorphicTransformation(ABC):
 
@@ -15,6 +13,7 @@ class MetamorphicTransformation(ABC):
         self.name = name
         if seed is not None:
             random.seed(seed)
+            np.random.seed(seed)
         classname = self.__class__.__name__
         if classname in metamorphic_strategies_config.keys():
             self.mr_config = metamorphic_strategies_config[classname]
@@ -41,6 +40,7 @@ class MetamorphicTransformation(ABC):
             "res_B": result_b
         }
         detectors = self.detectors
+        from lib.qfl import detect_divergence
         return detect_divergence(exec_metadata, detectors)
 
     @abstractmethod
