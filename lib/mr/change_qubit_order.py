@@ -5,7 +5,7 @@ from typing import List, Tuple, Dict, Any
 from lib.mr import MetamorphicTransformation
 
 import lib.metamorph as metamorph
-from lib.qfl import detect_divergence
+
 
 
 class ChangeQubitOrder(MetamorphicTransformation):
@@ -93,6 +93,7 @@ class ChangeQubitOrder(MetamorphicTransformation):
             "res_B": result_b
         }
         detectors = self.detectors
+        from lib.qfl import detect_divergence
         return detect_divergence(exec_metadata, detectors)
 
     def _read_str_with_mapping(

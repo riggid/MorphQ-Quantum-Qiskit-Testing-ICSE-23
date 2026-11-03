@@ -8,7 +8,7 @@ from typing import List, Tuple, Dict, Any
 from lib.mr import MetamorphicTransformation
 
 import lib.metamorph as metamorph
-from lib.qfl import detect_divergence
+
 from lib.generation_strategy_python import *
 from lib.generation_strategy_python import Fuzzer
 
@@ -101,4 +101,5 @@ class InjectNullEffect(MetamorphicTransformation):
             "res_B": result_b
         }
         detectors = self.detectors
+        from lib.qfl import detect_divergence
         return detect_divergence(exec_metadata, detectors)

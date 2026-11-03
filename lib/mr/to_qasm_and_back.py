@@ -9,7 +9,7 @@ import uuid
 from lib.mr import MetamorphicTransformation
 
 import lib.metamorph as metamorph
-from lib.qfl import detect_divergence
+
 
 
 class ToQasmAndBack(MetamorphicTransformation):
